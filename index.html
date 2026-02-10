@@ -98,12 +98,16 @@
       line-height: 1.6;
     }
 
-    /* Corazones flotando */
+    .countdown {
+      margin-top: 15px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    /* Corazones */
     .heart {
       position: absolute;
       bottom: -20px;
-      color: rgba(255,255,255,0.8);
-      font-size: 20px;
       animation: floatUp linear infinite;
       z-index: 1;
     }
@@ -142,6 +146,10 @@
       Prometo que valdrá la pena…<br>
       por favor no me dejes plantado 🥺<br><br>
       <strong>Te amo ❤️</strong>
+
+      <div class="countdown" id="countdown">
+        La canción empieza en 10 segundos… 🎶
+      </div>
     </div>
   </div>
 
@@ -150,6 +158,7 @@
     const no = document.getElementById("no");
     const invite = document.getElementById("invite");
     const buttons = document.getElementById("buttons");
+    const countdown = document.getElementById("countdown");
 
     let scale = 1;
 
@@ -169,10 +178,19 @@
       buttons.style.display = "none";
       invite.style.display = "block";
 
-      window.open(
-        "https://www.youtube.com/watch?v=3tmd-ClpJxA",
-        "_blank"
-      );
+      let time = 10;
+      const timer = setInterval(() => {
+        time--;
+        countdown.textContent = `La canción empieza en ${time} segundos… 🎶`;
+
+        if (time === 0) {
+          clearInterval(timer);
+          window.open(
+            "https://www.youtube.com/watch?v=3tmd-ClpJxA",
+            "_blank"
+          );
+        }
+      }, 1000);
     });
 
     // Corazones flotando
@@ -185,9 +203,7 @@
       heart.style.animationDuration = Math.random() * 3 + 4 + "s";
       document.body.appendChild(heart);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 7000);
+      setTimeout(() => heart.remove(), 7000);
     }, 500);
   </script>
 
